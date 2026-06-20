@@ -1,5 +1,15 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Auth and database
+
+This app is wired for:
+
+- [Clerk](https://clerk.com) for authentication
+- [Neon](https://neon.tech) free Postgres for the database
+- [Drizzle](https://orm.drizzle.team) for typed SQL access
+
+Copy `.env.example` to `.env.local` and fill in the Clerk and Neon values before starting the app.
+
 ## Getting Started
 
 First, run the development server:
