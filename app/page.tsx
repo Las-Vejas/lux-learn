@@ -224,19 +224,19 @@ export default function HomePage() {
               Learner stories
             </p>
             <h2 className="text-3xl font-bold tracking-tight md:text-4xl">
-              Quiet progress adds up.
+              Little steps add up.
             </h2>
           </div>
 
-          <div className="grid gap-4 md:grid-cols-3">
+          <div className="grid items-stretch gap-4 md:grid-cols-3">
             {testimonials.map((testimonial) => (
-              <Card key={testimonial.name}>
-                <CardContent className="pt-0">
+              <Card key={testimonial.name} className="h-full">
+                <CardContent className="flex-1 pt-0">
                   <blockquote className="text-base leading-7 text-muted-foreground">
                     &quot;{testimonial.quote}&quot;
                   </blockquote>
                 </CardContent>
-                <CardFooter className="gap-3">
+                <CardFooter className="mt-auto gap-3">
                   <Avatar>
                     <AvatarFallback>{testimonial.initials}</AvatarFallback>
                   </Avatar>

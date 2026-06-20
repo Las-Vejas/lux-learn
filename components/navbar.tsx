@@ -21,16 +21,22 @@ export default function Navbar() {
 
         {/* Desktop Nav */}
         <nav className="hidden space-x-6 md:flex">
-          <Link href="#features"
-                className="text-sm font-medium text-foreground/80 hover:text-foreground">
+          <Link
+            href="#features"
+            className="text-sm font-medium text-foreground/80 hover:text-foreground"
+          >
             Features
           </Link>
-          <Link href="#testimonials"
-                className="text-sm font-medium text-foreground/80 hover:text-foreground">
+          <Link
+            href="#testimonials"
+            className="text-sm font-medium text-foreground/80 hover:text-foreground"
+          >
             Stories
           </Link>
-          <Link href="#contact"
-                className="text-sm font-medium text-foreground/80 hover:text-foreground">
+          <Link
+            href="#contact"
+            className="text-sm font-medium text-foreground/80 hover:text-foreground"
+          >
             Contact
           </Link>
         </nav>

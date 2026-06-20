@@ -1,9 +1,15 @@
 import { SignUp } from "@clerk/nextjs";
 
+import { AuthShell } from "@/components/auth-shell";
+
 export default function Page() {
   return (
-    <div className="flex min-h-[calc(100svh-4rem)] items-center justify-center px-4 py-16">
+    <AuthShell
+      eyebrow="Start learning"
+      title="Build your first Luxembourgish habit."
+      description="Create an account to keep streaks, review missed words, and unlock smarter practice."
+    >
       <SignUp />
-    </div>
+    </AuthShell>
   );
 }
