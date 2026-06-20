@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { ThemeProvider } from "@/components/theme-provider";
 import { SiteChrome } from "@/components/site-chrome";
 import { Providers } from "@/app/providers";
+import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = {
   title: "LuxLearn - Learn Luxembourgish",
@@ -23,6 +24,7 @@ export default function RootLayout({
     >
       <body className="flex min-h-screen flex-col bg-background text-foreground font-sans">
         <Providers>
+        <Analytics/>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <SiteChrome>{children}</SiteChrome>
           </ThemeProvider>
