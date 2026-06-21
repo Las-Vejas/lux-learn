@@ -254,7 +254,7 @@ export default function HomePage() {
       </section>
 
       <section className="bg-primary py-16 text-primary-foreground md:py-20">
-        <div className="container mx-auto flex flex-col items-center gap-6 px-4 text-center">
+        <div className="container mx-auto flex flex-col  items-center gap-6 px-4 text-center">
           <Trophy aria-hidden="true" />
           <div className="flex max-w-2xl flex-col gap-3">
             <h2 className="text-3xl font-bold tracking-tight md:text-5xl">

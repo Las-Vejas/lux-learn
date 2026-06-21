@@ -36,7 +36,7 @@ export function AppBottomBar() {
   return (
     <nav
       aria-label="Learning navigation"
-      className="fixed inset-x-0 bottom-0 bg-background/95 px-3 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-3 backdrop-blur"
+      className="fixed inset-x-0 bottom-0 bg-transparent px-3 pb-[calc(env(safe-area-inset-bottom)+0.75rem)] pt-3 backdrop-blur"
     >
       <div className="mx-auto flex max-w-2xl items-center justify-between gap-1 border-2 px-2 py-2 rounded-full">
         {navItems.map((item) => {

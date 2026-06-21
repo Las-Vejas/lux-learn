@@ -9,6 +9,7 @@
     "lint": "eslint",
     "db:generate": "drizzle-kit generate",
     "db:push": "drizzle-kit push",
+    "db:seed": "tsx db/seed.ts",
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
@@ -43,6 +44,7 @@
     "eslint-config-next": "16.2.9",
     "shadcn-ui": "^0.9.5",
     "tailwindcss": "^4",
+    "tsx": "^4.22.4",
     "typescript": "^5"
   }
 }

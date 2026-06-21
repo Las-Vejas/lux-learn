@@ -104,3 +104,129 @@ export const userFlashcardProgressRelations = relations(
     }),
   })
 );
+
+export const courseSections = sqliteTable("course_sections", {
+  id: text("id").primaryKey(),
+  slug: text("slug").notNull().unique(),
+  title: text("title").notNull(),
+  description: text("description"),
+  order: integer("order").notNull(),
+  createdAt: integer("created_at", { mode: "timestamp"})
+    .default(sql`(unixepoch())`)
+    .notNull(),
+  updatedAt: integer("updated_at", { mode: "timestamp" })
+    .default(sql`(unixepoch())`)
+    .notNull(),
+});
+
+
+export const courseUnits = sqliteTable("course_units", {
+  id: text("id").primaryKey(),
+  sectionId: text("section_id")
+    .notNull()
+    .references(() => courseSections.id, { onDelete: "cascade" }),
+  slug: text("slug").notNull().unique(),
+  title: text("title").notNull(),
+  description: text("description"),
+  order: integer("order").notNull(),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .default(sql`(unixepoch())`)
+    .notNull(),
+  updatedAt: integer("updated_at", { mode: "timestamp" })
+    .default(sql`(unixepoch())`)
+    .notNull(),
+});
+
+export const lessons = sqliteTable("lessons", {
+  id: text("id").primaryKey(),
+  unitId: text("unit_id")
+    .notNull()
+    .references(() => courseUnits.id, { onDelete: "cascade" }),
+  slug: text("slug").notNull().unique(),
+  title: text("title").notNull(),
+  description: text("description"),
+  level: integer("level").notNull().default(1),
+  order: integer("order").notNull(),
+  xpReward: integer("xp_reward").notNull().default(10),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .default(sql`(unixepoch())`)
+    .notNull(),
+  updatedAt: integer("updated_at", { mode: "timestamp" })
+    .default(sql`(unixepoch())`)
+    .notNull(),
+});
+
+export const lessonSteps = sqliteTable("lesson_steps", {
+  id: text("id").primaryKey(),
+  lessonId: text("lesson_id")
+    .notNull()
+    .references(() => lessons.id, { onDelete: "cascade" }),
+  flashcardId: text("flashcard_id").references(() => flashcards.id, {
+    onDelete: "set null",
+  }),
+  type: text("type", {
+    enum: [
+      "teach",
+      "multiple_choice",
+      "translate_to_english",
+      "translate_to_lux",
+      "fill_blank",
+    ],
+  }).notNull(),
+  order: integer("order").notNull(),
+  prompt: text("prompt").notNull(),
+  content: text("content"),
+  answer: text("answer"),
+  choices: text("choices", { mode: "json" }).$type<string[]>(),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .default(sql`(unixepoch())`)
+    .notNull(),
+  updatedAt: integer("updated_at", { mode: "timestamp" })
+    .default(sql`(unixepoch())`)
+    .notNull(),
+});
+
+export const userLessonProgress = sqliteTable(
+  "user_lesson_progress",
+  {
+    id: text("id").primaryKey(),
+    clerkUserId: text("clerk_user_id").notNull(),
+    lessonId: text("lesson_id")
+      .notNull()
+      .references(() => lessons.id, { onDelete: "cascade" }),
+    status: text("status", {
+      enum: ["not_started", "in_progress", "complete"],
+    })
+      .notNull()
+      .default("not_started"),
+    currentStepOrder: integer("current_step_order").notNull().default(0),
+    correctCount: integer("correct_count").notNull().default(0),
+    wrongCount: integer("wrong_count").notNull().default(0),
+    completedAt: integer("completed_at", { mode: "timestamp" }),
+    createdAt: integer("created_at", { mode: "timestamp" })
+      .default(sql`(unixepoch())`)
+      .notNull(),
+    updatedAt: integer("updated_at", { mode: "timestamp" })
+      .default(sql`(unixepoch())`)
+      .notNull(),
+  },
+  (table) => [
+    uniqueIndex("user_lesson_progress_user_lesson_idx").on(
+      table.clerkUserId,
+      table.lessonId
+    ),
+  ]
+);
+
+export const userLessonAttempts = sqliteTable("user_lesson_attempts", {
+  id: text("id").primaryKey(),
+  clerkUserId: text("clerk_user_id").notNull(),
+  lessonStepId: text("lesson_step_id")
+    .notNull()
+    .references(() => lessonSteps.id, { onDelete: "cascade" }),
+  answer: text("answer"),
+  isCorrect: integer("is_correct", { mode: "boolean" }).notNull(),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .default(sql`(unixepoch())`)
+    .notNull(),
+});

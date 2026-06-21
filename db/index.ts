@@ -1,7 +1,10 @@
 import { createClient } from "@libsql/client";
+import { loadEnvConfig } from "@next/env";
 import { drizzle } from "drizzle-orm/libsql";
 
 import * as schema from "./schema";
+
+loadEnvConfig(process.cwd());
 
 const databaseUrl = process.env.TURSO_DATABASE_URL;
 
